@@ -20,7 +20,7 @@ Must be used on a wildcard route (`/*.tsx`). Router must be given the route URL
 and the file URL so that it can reconstruct the fresh routes. Routes can be
 nested within each other without needing another Router component
 
-```typescript
+```tsx
 <Router
   routeUrl={props.url}
   fileUrl={import.meta.url}
