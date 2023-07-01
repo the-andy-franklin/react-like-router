@@ -9,7 +9,7 @@ Add **react-like-router** dependency to your `imports_map.json` file:
 ```json
 {
   "imports": {
-    "react-like-router/": "https://deno.land/x/react-like-router@0.1.5/"
+    "react-like-router/": "https://deno.land/x/react-like-router@0.1.6/"
   }
 }
 ```
@@ -31,7 +31,7 @@ nested within each other without needing another Router component
       2
     </Route>
   </Route>
-  <Route path="3">
+  <Route path="/3">
     3
   </Route>
 </Router>;
