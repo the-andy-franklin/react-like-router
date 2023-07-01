@@ -1,6 +1,6 @@
-import { RouteProps, RouterProps } from "./types.ts";
 import { RouteContext } from "./context.ts";
-import { useContext } from "./deps.ts";
+import { RouteProps, RouterProps } from "./types.ts";
+import { useContext } from "preact/hooks";
 
 export const Route = ({ path, children }: RouteProps) => {
   const { url, prevPath } = useContext(RouteContext);

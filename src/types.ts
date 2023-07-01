@@ -1,4 +1,4 @@
-import { type JSX } from './deps.ts';
+import { type JSX } from "preact";
 
 export type RouteProps = {
   path: string;
@@ -9,4 +9,4 @@ export type RouterProps = {
   routeUrl: URL;
   fileUrl?: string;
   children?: string | JSX.Element | (string | JSX.Element)[];
-}
+};
