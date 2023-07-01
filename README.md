@@ -9,7 +9,7 @@ Add **react-like-router** dependency to your `imports_map.json` file:
 ```json
 {
   "imports": {
-    "react-like-router/": "https://deno.land/x/react-like-router@0.1.4/"
+    "react-like-router/": "https://deno.land/x/react-like-router@0.1.5/"
   }
 }
 ```
