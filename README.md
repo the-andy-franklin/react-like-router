@@ -4,22 +4,22 @@ A React-like router for Deno Fresh (works with the fresh router)
 
 ## Installation
 
-Add **react-like-router** dependency to your `imports_map.json` file:
+Add **react-like-router** dependency to your `deno.json` file:
 
 ```json
 {
   "imports": {
-    "react-like-router": "https://deno.land/x/react-like-router/mod.ts"
+    "react-like-router": "https://deno.land/x/react_like_router/mod.ts"
   }
 }
 ```
 
 ## Usage
 
-Can only be used on a route that ends in a wildcard (`*.tsx`). Router must be
-given the route URL and the file URL so that it can reconstruct the fresh
-routes. Routes can be nested within each other without needing another Router
-component
+Can only be used on a route that ends in a wildcard (`routes/anything*.tsx`).
+Router must be given the route URL and the file URL so that it can reconstruct
+the fresh routes. Routes can be nested within each other without needing another
+Router component
 
 ```tsx
 <Router
