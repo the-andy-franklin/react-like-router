@@ -24,16 +24,25 @@ component
 ```tsx
 <Router
   routeUrl={props.url}
-  fileUrl={import.meta.url}
+  fileUrl={import.meta.url} // only needed if using together with file-based routing
 >
   <Route path="/1">
     1
-    <Route path="/2">
-      2
-    </Route>
   </Route>
-  <Route path="/3">
-    3
+  <Route path="/2">
+    2
+    <Router routeUrl={props.url}>
+      {/* fileUrl not needed here because it's passed down from first Router */}
+      <Route path="/a">
+        2a
+      </Route>
+      <Route path="/b">
+        2b
+      </Route>
+    </Router>
+  </Route>
+  <Route fallthru>
+    404
   </Route>
 </Router>;
 ```

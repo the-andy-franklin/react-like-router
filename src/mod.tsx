@@ -2,38 +2,50 @@ import { RouteContext } from "./context.ts";
 import { RouteProps, RouterProps } from "./types.ts";
 import { useContext } from "preact/hooks";
 
-export const Route = ({ path, children }: RouteProps) => {
-  if (!path.startsWith("/")) {
-    throw new Error("Route path must start with /");
+export const Route = (props: RouteProps) => {
+  const { children } = props;
+  if (!children) return null;
+
+  if ("path" in props) {
+    if (!props.path.startsWith("/")) {
+      throw new Error('Route path must start with "/"');
+    }
   }
 
-  const { url, prevPath } = useContext(RouteContext);
+  return <>{children}</>;
+};
 
-  const prevRoute = (prevPath + path).split("/");
-  const fullRoute = url.pathname.split("/");
+export const Router = ({ url, filePath, children }: RouterProps) => {
+  if (!children) return null;
+  if (!Array.isArray(children)) children = [children];
+  const prevPath = useContext(RouteContext).prevPath ||
+    (filePath?.match(/\/routes(\/[^*]+)*\*\.tsx$/)?.[1] ?? "");
 
-  const joinedFullRoute = fullRoute.slice(0, prevRoute.length).join("/");
-  const joinedPrevRoute = prevRoute.join("/");
+  for (const child of children) {
+    if (
+      typeof child === "object" && "props" in child &&
+      typeof child.props === "object" &&
+      ("path" in child.props || "fallthru" in child.props)
+    ) {
+      if ("fallthru" in child.props) return child;
+      const thisPath = prevPath + child.props.path;
 
-  if (joinedFullRoute === joinedPrevRoute) {
-    return (
-      <RouteContext.Provider value={{ url, prevPath: prevPath + path }}>
-        {children}
-      </RouteContext.Provider>
-    );
+      const splitUrl = url.pathname.split("/");
+      const splitPath = thisPath.split("/");
+
+      const joinedUrl = splitUrl.slice(0, splitPath.length).join("/");
+
+      if (joinedUrl === thisPath) {
+        return (
+          <RouteContext.Provider
+            value={{ prevPath: thisPath }}
+          >
+            {child}
+          </RouteContext.Provider>
+        );
+      }
+    }
   }
 
   return null;
-};
-
-export const Router = (
-  { routeUrl, fileUrl, children }: RouterProps,
-) => {
-  const baseUrl = fileUrl?.match(/\/routes(\/[^*]+)*\*\.tsx$/)?.[1] ?? "";
-
-  return (
-    <RouteContext.Provider value={{ prevPath: baseUrl, url: routeUrl }}>
-      {children}
-    </RouteContext.Provider>
-  );
 };
