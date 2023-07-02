@@ -25,7 +25,7 @@ export const Route = ({ path, children }: RouteProps) => {
 export const Router = (
   { routeUrl, fileUrl, children }: RouterProps,
 ) => {
-  const baseUrl = fileUrl?.match(/\/routes(\/.*)\/.+\.tsx?$/)?.[1] ?? "";
+  const baseUrl = fileUrl?.match(/\/routes(\/[^*]+)*\*\.tsx$/)?.[1] ?? "";
 
   return (
     <RouteContext.Provider value={{ prevPath: baseUrl, url: routeUrl }}>
