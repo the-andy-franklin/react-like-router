@@ -3,10 +3,14 @@ import { RouteProps, RouterProps } from "./types.ts";
 import { useContext } from "preact/hooks";
 
 export const Route = ({ path, children }: RouteProps) => {
+  if (!path.startsWith("/")) {
+    throw new Error("Route path must start with /");
+  }
+
   const { url, prevPath } = useContext(RouteContext);
 
-  const fullRoute = url.pathname.split("/");
   const prevRoute = (prevPath + path).split("/");
+  const fullRoute = url.pathname.split("/");
 
   const joinedFullRoute = fullRoute.slice(0, prevRoute.length).join("/");
   const joinedPrevRoute = prevRoute.join("/");
