@@ -9,16 +9,17 @@ Add **react-like-router** dependency to your `imports_map.json` file:
 ```json
 {
   "imports": {
-    "react-like-router/": "https://deno.land/x/react-like-router@0.1.6/"
+    "react-like-router": "https://deno.land/x/react-like-router@0.1.6/mod.ts"
   }
 }
 ```
 
 ## Usage
 
-Must be used on a wildcard route (`/*.tsx`). Router must be given the route URL
-and the file URL so that it can reconstruct the fresh routes. Routes can be
-nested within each other without needing another Router component
+Can only be used on a route that ends in a wildcard (`*.tsx`). Router must be
+given the route URL and the file URL so that it can reconstruct the fresh
+routes. Routes can be nested within each other without needing another Router
+component
 
 ```tsx
 <Router
