@@ -41,7 +41,7 @@ Router component
       </Route>
     </Router>
   </Route>
-  <Route fallthru>
+  <Route path="/">
     404
   </Route>
 </Router>;

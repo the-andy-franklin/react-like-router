@@ -3,14 +3,14 @@ import { RouteProps, RouterProps } from "./types.ts";
 import { useContext } from "preact/hooks";
 
 export const Route = (props: RouteProps) => {
-  const { children } = props;
-  if (!children) return null;
-
   if ("path" in props) {
     if (!props.path.startsWith("/")) {
       throw new Error('Route path must start with "/"');
     }
   }
+
+  const { children } = props;
+  if (!children) return null;
 
   return <>{children}</>;
 };
@@ -25,20 +25,12 @@ export const Router = ({ url, filePath, children }: RouterProps) => {
     if (
       typeof child === "object" && "props" in child &&
       typeof child.props === "object" &&
-      ("path" in child.props || "fallthru" in child.props)
+      "path" in child.props
     ) {
-      if ("fallthru" in child.props) return child;
-      const thisPath = prevPath + child.props.path;
-
-      const splitUrl = url.pathname.split("/");
-      const splitPath = thisPath.split("/");
-
-      const joinedUrl = splitUrl.slice(0, splitPath.length).join("/");
-
-      if (joinedUrl === thisPath) {
+      if (url.pathname.startsWith(prevPath + child.props.path)) {
         return (
           <RouteContext.Provider
-            value={{ prevPath: thisPath }}
+            value={{ prevPath: prevPath + child.props.path }}
           >
             {child}
           </RouteContext.Provider>
