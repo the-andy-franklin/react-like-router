@@ -16,10 +16,9 @@ Add **react-like-router** dependency to your `deno.json` file:
 
 ## Usage
 
-Can only be used on a route that ends in a wildcard (`routes/anything*.tsx`).
-Router must be given the route URL and the file URL so that it can reconstruct
-the fresh routes. Routes can be nested within each other without needing another
-Router component
+Can only be used on a route that ends in a wildcard (`routes/*.tsx`). Router
+must be given the path URL to function. It can be passed the file URL to make it
+work with the Deno Fresh router.
 
 ```tsx
 <Router
